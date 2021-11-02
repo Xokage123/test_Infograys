@@ -5,7 +5,7 @@ class VideoList extends React.Component {
 
 	constructor(props) {
 		super(props);
-		console.log('List of videos: ' + props.videos.map((v, i) => `${i + 1}). ${v}`).join(', '));
+		console.log(`List of videos: ${props.videos.map((v, i) => `${i + 1}). ${v}`).join(', ')}`);
 	}
 
 	/**
