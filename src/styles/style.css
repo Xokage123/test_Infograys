@@ -2,33 +2,54 @@
     font-family: Arial;
 }
 
-.videoList {
-    float: right;
+.listVideos {
+    display   : flex;
+    flex-wrap : wrap;
+    gap       : 20px;
+    padding   : 20px;
+    margin-top: 20px;
+    border    : 2px solid black;
 }
 
-.videoList > div {
+.listVideos_Item {
+}
+
+.videoContainer span {
+    display   : none;
+    visibility: hidden;
+}
+
+.linkContainer {
+    padding         : 10px;
+    border-radius: 15px;
     background-color: aquamarine;
 }
 
-.videoList > div:hover {
+
+.linkContainer:hover {
     background-color: darkorange;
 }
 
-.video {
-    display: inline-block;
-    position: relative;
+
+.button {
+    cursor       : pointer;
+    background   : rgb(96, 185, 245);
+    padding      : 10px;
+    border       : none;
+    border-radius: 15px;
 }
 
-.video > span {
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    transform: rotate(-45deg);
-    color: orange;
+.button:hover {
+    transform: scale(1.1);
 }
 
 .addButton {
-    margin: 10px;
+    margin-top: 15px;
+    background: rgb(85, 253, 85);
+}
+
+ul {
+    margin    : 0;
+    padding   : 0;
+    list-style: none;
 }

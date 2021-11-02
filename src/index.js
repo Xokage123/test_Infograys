@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { render } from 'react-dom';
-import VideoList from './components/videoList';
+import VideoList from './components/VideoList';
 import VideoModel from './models/video';
 import Input from './components/youtubeInput';
 
@@ -13,7 +13,7 @@ const App = (props) => {
 	const [videos, setVideos] = useState([])
 	return (
 		<div>
-			<h3>Test task</h3>
+			<h3>Список видео по запросу</h3>
 			<Input callback={(array) => {
 				const transformValue = array.map((video) => {
 					return `https://www.youtube.com/watch?v=${video.id.videoId}`
@@ -22,7 +22,9 @@ const App = (props) => {
 					return transformValue
 				})
 			}} />
-			<VideoList model={model} videos={videos} />
+			{
+				videos.length ? <VideoList model={model} videos={videos} /> : <div>Извините,здесь пока нет видео</div>
+			}
 		</div>
 	)
 };

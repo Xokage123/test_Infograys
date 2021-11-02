@@ -7,20 +7,29 @@ const handleOnChange = Symbol();
 export default class Input extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {value: 'Funny cats'};
+		this.state = { value: 'Funny cats' };
 		this.setVideos = props.callback.bind(this)
+		this.submitVideos = (check) => {
+			if (check) {
+				gapi.client.request({
+					path: 'https://www.googleapis.com/youtube/v3/search',
+					params: {
+						part: 'snippet',
+						q: this.state.value,
+						maxResults: 20
+					}
+				}).then((res) => {
+					this.setVideos(res.result.items)
+				}).catch(er => {
+					console.log(er)
+				})
+			} else {
+				alert('Привышен лимит запросов к видео!!!')
+			}
+		}
 	}
 	componentDidMount() {
-		gapi.client.request({
-			path: 'https://www.googleapis.com/youtube/v3/search',
-			params: {
-				part: 'snippet',
-				q: this.state.value,
-				maxResults: 20
-			}
-		}).then((res) => {
-			this.setVideos(res.result.items)
-		})
+		this.submitVideos()
 	}
 	[handleKeyPress](event) {
 		if (event.key === 'Enter') {
@@ -28,28 +37,19 @@ export default class Input extends React.Component {
 		}
 	}
 	[handleOnChange](event) {
-		this.setState({value: event.target.value});
-		gapi.client.request({
-			path: 'https://www.googleapis.com/youtube/v3/search',
-			params: {
-				part: 'snippet',
-				q: this.state.value,
-				maxResults: 20
-			}
-		}).then((res) => {
-			this.setVideos(res.result.items)
-		})
+		this.setState({ value: event.target.value });
 	}
 	render() {
 		return (
-			<div>
+			<form>
 				<input
-				type="text"
-				onChange={this[handleOnChange].bind(this)}
-				onKeyPress={this[handleKeyPress].bind(this)}
-				value={this.state.value}
+					type="text"
+					onChange={this[handleOnChange].bind(this)}
+					onKeyPress={this[handleKeyPress].bind(this)}
+					value={this.state.value}
 				/>
-			</div>
+				<button onClick={() => this.submitVideos(gapi.client)} type="submit">Поиск</button>
+			</form>
 		);
 	}
 }

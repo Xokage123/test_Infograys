@@ -1,5 +1,5 @@
 import React from 'react';
-import Video from './video';
+import Video from '../video';
 
 class VideoList extends React.Component {
 
@@ -28,10 +28,10 @@ class VideoList extends React.Component {
 	render() {
 		const list = this.props.model.videos.map(video => {
 			return (
-				<div key={video.id}>
+				<li key={video.id}>
 					{video.url}
 					<button onClick={this.remove.bind(this, video)}>x</button>
-				</div>
+				</li>
 			);
 		}, this);
 		const videos = this.props.model.videos.map(video => {
@@ -45,15 +45,28 @@ class VideoList extends React.Component {
 		}, this);
 		return (
 			<div>
-				<div className="addButton">
-					<button onClick={this.add.bind(this)}>+</button>
-				</div>
-				<div className="videoList">
-					{list}
-				</div>
-				<div className="videos">
-					{videos}
-				</div>
+				<button className="button addButton" onClick={this.add.bind(this)}>Добавить видео в список</button>
+				<ul className="listVideos">
+					{
+						this.props.model.videos.map(video => {
+							return (
+								<li className="listVideos_Item" key={video.id}>
+									<div className="videoContainer">
+										<Video
+											url={video.url}
+											key={video.id}
+											videoId={video.videoId} а
+										/>
+									</div>
+									<div className="linkContainer">
+										{video.url}
+										<button className="button removeButton" onClick={this.remove.bind(this, video)}>Удалить видео из списка</button>
+									</div>
+								</li>
+							)
+						})
+					}
+				</ul>
 			</div>
 		);
 	}
