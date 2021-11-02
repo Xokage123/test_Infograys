@@ -29,7 +29,7 @@ export default class Input extends React.Component {
 		}
 	}
 	componentDidMount() {
-		this.submitVideos()
+		this.submitVideos(gapi.client)
 	}
 	[handleKeyPress](event) {
 		if (event.key === 'Enter') {
